@@ -8,6 +8,13 @@ module.exports = {
         secondary: "#F6B203",
         third: "#1A3846",
       },
+      fontFamily: {
+        regular: ["Montserrat-Regular", "sans-serif"],
+        medium: ["Montserrat-Medium", "sans-serif"],
+        semibold: ["Montserrat-SemiBold", "sans-serif"],
+        bold: ["Montserrat-Bold", "sans-serif"],
+        italic: ["Montserrat-Italic", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -3,21 +3,25 @@ import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import React, { useEffect } from "react";
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-  // const [fontsLoaded, fontError] = useFonts({
-  //   "Monserrat-Regular": require("../assets/fonts/Montserrat-VariableFont_wght.ttf"),
-  // });
+  const [fontsLoaded, fontError] = useFonts({
+    "Monserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "Monserrat-Medium": require("../assets/fonts/Montserrat-Medium.ttf"),
+    "Monserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
+    "Monserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
+    "Monserrat-Italic": require("../assets/fonts/Montserrat-Italic.ttf"),
+  });
 
-  // useEffect(() => {
-  //   if (fontError) throw fontError;
-  //   if (fontsLoaded) SplashScreen.hideAsync();
-  // }, [fontsLoaded, fontError]);
+  useEffect(() => {
+    if (fontError) throw fontError;
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded, fontError]);
 
-  // if (!fontsLoaded && !fontError) {
-  //   return null;
-  // }
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <Stack>
