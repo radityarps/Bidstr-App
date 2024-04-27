@@ -1,17 +1,17 @@
 import { Text, View } from "react-native";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [fontsLoaded, fontError] = useFonts({
-    "Monserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
-    "Monserrat-Medium": require("../assets/fonts/Montserrat-Medium.ttf"),
-    "Monserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
-    "Monserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
-    "Monserrat-Italic": require("../assets/fonts/Montserrat-Italic.ttf"),
+    "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "Montserrat-Medium": require("../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-SemiBold": require("../assets/fonts/Montserrat-SemiBold.ttf"),
+    "Montserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-Italic": require("../assets/fonts/Montserrat-Italic.ttf"),
   });
 
   useEffect(() => {
