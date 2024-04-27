@@ -1,20 +1,29 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { SplashScreen, Stack } from "expo-router";
+import { useFonts } from "expo-font";
+import React, { useEffect } from "react";
 
-export default function App() {
+// SplashScreen.preventAutoHideAsync();
+
+const RootLayout = () => {
+  // const [fontsLoaded, fontError] = useFonts({
+  //   "Monserrat-Regular": require("../assets/fonts/Montserrat-VariableFont_wght.ttf"),
+  // });
+
+  // useEffect(() => {
+  //   if (fontError) throw fontError;
+  //   if (fontsLoaded) SplashScreen.hideAsync();
+  // }, [fontsLoaded, fontError]);
+
+  // if (!fontsLoaded && !fontError) {
+  //   return null;
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text>Test</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+    </Stack>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default RootLayout;
