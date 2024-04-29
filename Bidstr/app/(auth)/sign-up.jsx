@@ -32,7 +32,7 @@ const SignUp = () => {
           />
           <FormField
             title="email"
-            placeholder="Input your Email"
+            placeholder="Email"
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mb-2"
@@ -40,7 +40,7 @@ const SignUp = () => {
           />
           <FormField
             title="password"
-            placeholder="Input your Password"
+            placeholder="Password"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mb-2"
