@@ -15,7 +15,7 @@ const CustomButton = ({
       className={` ${containerStyles} ${isLoading ? "opacity-50" : ""}`}
       disabled={isLoading}
     >
-      <Text className={`font-semibold text-l ${textStyles}`}>{title}</Text>
+      <Text className={`${textStyles}`}>{title}</Text>
     </TouchableOpacity>
   );
 };
