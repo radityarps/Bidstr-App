@@ -32,7 +32,9 @@ export default function App() {
           />
           <CustomButton
             title="Register"
-            handlePress={() => {}}
+            handlePress={() => {
+              router.push("(auth)/sign-up");
+            }}
             containerStyles=" bg-transparent border rounded-[5px] min-h-[56px] justify-center items-center flex w-full mt-4"
             textStyles="font-semibold text-lg"
           />

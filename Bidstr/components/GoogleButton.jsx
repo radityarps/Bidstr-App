@@ -8,7 +8,7 @@ const GoogleButton = ({ title, containerStyles, isLoading }) => {
     <TouchableOpacity
       onPress={() => {}}
       activeOpacity={0.7}
-      className={`${containerStyles} flex-row mt-5 bg-transparent border rounded-[5px] min-h-[56px] justify-center items-center w-full"
+      className={`${containerStyles} flex-row mt-5 bg-transparent border-[0.2px] rounded-[5px] min-h-[56px] justify-center items-center w-full"
             textStyles="font-semibold text-l ${isLoading ? "opacity-50" : ""}`}
       disabled={isLoading}
     >
@@ -18,7 +18,7 @@ const GoogleButton = ({ title, containerStyles, isLoading }) => {
           resizeMode="contain"
           className="w-7 h-7"
         />
-        <Text className="text-lg font-medium">Login with Google</Text>
+        <Text className="text-lg font-medium">{title}</Text>
       </View>
     </TouchableOpacity>
   );
