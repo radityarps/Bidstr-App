@@ -1,4 +1,4 @@
-const authController = require('../controllers/register');
+const authController = require('../controllers/auth');
 const express = require('express')
 const router = express.Router();
 
@@ -10,7 +10,9 @@ const router = express.Router();
 // router.get('/register', (req, res) => {
 //     res.render('register.jsx')
 // })
-router.post('/register', authController.register);
+router.post('/sign-up', authController.register);
+router.post('/sign-in', authController.login);
+router.post('/sign-up/verify', authController.verifyOTP);
 // router.get('/register/otp', (req, res) =>  {
 //     res.render('otp.jsx')
 // });

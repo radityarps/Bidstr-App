@@ -2,18 +2,10 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const pool = require('./database/connection');
-const router = require('./routes/auth');
+const auth = require('./routes/auth');
 const app = express();
 const port = 5000;
 
-
-pool.connect(err => {
-    if (err) {
-      console.error('Error connecting to PostgreSQL:', err);
-      return;
-    }
-    console.log('Connected to PostgreSQL database');
-  });
 
   app.use(express.json())
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,14 +15,21 @@ pool.connect(err => {
   }));
   
   app.get('/data', async (req, res) => {
-      await pool.query("SELECT * FROM users").then((result) => {
-        return res.status(200).json(result)
-      }).catch((error) => {
+    const db = await pool.connect();
+    try {
+      const result =  await db.query('SELECT * FROM users')
+      return res.status(200).json(result)
+    } catch(error) {
         return res.status(500).json({error: error.message})
-      });
+    } finally {
+      db.release();
+    }
   })
 
-  app.post('/register', router);
+  app.post('/sign-up', auth);
+  app.post('/sign-up/verify', auth)
+  app.post('/sign-in', auth);
+  
   // app.use('/register/otp', router);
 
 // app.get('/register', (req, res) => {
