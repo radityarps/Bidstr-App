@@ -5,7 +5,7 @@ import images from "../../constants/images";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import GoogleButton from "../../components/GoogleButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -56,7 +56,9 @@ const SignUp = () => {
           />
           <CustomButton
             title="Register"
-            handlePress={() => {}}
+            handlePress={() => {
+              router.push("(auth)/otp-verify");
+            }}
             containerStyles=" bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full mt-4 mb-10"
             textStyles="font-semibold text-lg"
           />

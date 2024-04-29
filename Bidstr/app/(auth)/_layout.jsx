@@ -30,6 +30,18 @@ const AuthLayout = () => {
             headerLeft: () => <HeaderBackButton />,
           }}
         />
+        <Stack.Screen
+          name="otp-verify"
+          options={{
+            headerShown: true,
+            title: "",
+            headerStyle: {
+              backgroundColor: "transparent",
+            },
+            headerShadowVisible: false,
+            headerLeft: () => <HeaderBackButton />,
+          }}
+        />
       </Stack>
     </>
   );
