@@ -13,7 +13,7 @@ const SignIn = () => {
   return (
     <SafeAreaView className="h-full">
       <ScrollView>
-        <View className="flex justify-center h-full w-full px-5">
+        <View className="flex justify-center min-h-[85vh] w-full px-5">
           <Text className="text-4xl font-bold">Welcome to</Text>
           <Text className="text-4xl font-bold">Bidstr</Text>
           <Image
@@ -58,10 +58,10 @@ const SignIn = () => {
             </Text>
             <View className="flex-1 h-[1px] bg-[#6A707C]" />
           </View>
-          <GoogleButton />
+          <GoogleButton title="Login with Google" />
           <View className="w-full flex-row justify-center items-center mt-16">
             <Text>Don't have an account? </Text>
-            <Link href="" className="color-secondary font-semibold">
+            <Link href="/sign-up" className="color-secondary font-semibold">
               Register Now
             </Link>
           </View>
