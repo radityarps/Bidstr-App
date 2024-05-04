@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Linking } from "react-native";
+import { View, Text, Image, ScrollView, Linking, Alert } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../constants/images";
@@ -6,10 +6,54 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import GoogleButton from "../../components/GoogleButton";
 import { Link } from "expo-router";
+import axios from "axios";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isSubmitting, setisSubmitting] = useState(false);
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
+    setisSubmitting(true);
+    const email = form.email;
+    const password = form.password;
+    try {
+      // await axios
+      //   .post("http://localhost:3000/auth/sign-in", { email, password })
+      //   .then((data) => {
+      //     if (!data) return;
+      //     console.log(data);
+      //   });
+      fetch("http://localhost:3000/auth/sign-in", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "*",
+        },
+        body: JSON.stringify(form),
+      })
+        .catch((err) => {
+          return;
+        })
+        .then((res) => {
+          if (!res || !res.ok || res.status >= 400) {
+            return;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          if (!data) return;
+          console.log(data);
+        });
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    } finally {
+      setisSubmitting(false);
+    }
+  };
   return (
     <SafeAreaView className="h-full">
       <ScrollView>
@@ -47,7 +91,7 @@ const SignIn = () => {
           </View>
           <CustomButton
             title="Login"
-            handlePress={() => {}}
+            handlePress={submit}
             containerStyles=" bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full top-[-20px]"
             textStyles="font-semibold text-lg"
           />
