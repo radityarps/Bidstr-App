@@ -1,13 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 import {
   getReactNativePersistence,
   initializeAuth,
-  InitializeAuth,
+  getAuth,
 } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 
@@ -15,7 +15,15 @@ import { getFirestore, collection } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import "dotenv/config";
+import {
+  FIREBASE_APIKEY,
+  FIREBASE_AUTHDOMAIN,
+  FIREBASE_PROJECTID,
+  FIREBASE_STORAGEBUCKET,
+  FIREBASE_MESSAGINGSENDERID,
+  FIREBASE_APPID,
+  FIREBASE_MEASUREMENTID,
+} from "@env";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
@@ -29,13 +37,23 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+async function initializeAnalytics() {
+  const supported = await isSupported();
+  if (supported) {
+    const analytics = getAnalytics();
+    console.log("Firebase Analytics is initialized.");
+  } else {
+    console.log("Firebase Analytics is not supported in this environment.");
+  }
+}
 
-const auth = initializeAuth(app, {
+initializeAnalytics();
+
+export const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
-export const db = getFirestore(app);
+export const db = getFirestore();
 
-export const userRef = collection(db, "user");
+export const userRef = collection(db, "users");
 export const roomRef = collection(db, "room");

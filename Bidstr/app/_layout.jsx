@@ -1,11 +1,42 @@
 import { Text, View } from "react-native";
-import { SplashScreen, Stack } from "expo-router";
+import { Slot, SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import { AuthContextProvider, useAuth } from "../context/authContext";
 
 SplashScreen.preventAutoHideAsync();
 
+const MainLayout = () => {
+  // Auth
+  const { isAuthenticated } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check auth
+    if (typeof isAuthenticated == "undefined") return;
+
+    const inApp = segments[0] == "(tabs)";
+
+    if (isAuthenticated && !inApp) {
+      router.replace("/projects");
+    } else if (!isAuthenticated) {
+      router.replace("/");
+    }
+  }, [isAuthenticated]);
+
+  return (
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      {/* <Stack.Screen name="search/[query]" options={{ headerShown: false }} /> */}
+    </Stack>
+  );
+};
+
 const RootLayout = () => {
+  // Fonts
   const [fontsLoaded, fontError] = useFonts({
     "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
     "Montserrat-Medium": require("../assets/fonts/Montserrat-Medium.ttf"),
@@ -24,11 +55,9 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <AuthContextProvider>
+      <MainLayout />
+    </AuthContextProvider>
   );
 };
 

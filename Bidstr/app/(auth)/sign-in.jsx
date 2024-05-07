@@ -7,10 +7,14 @@ import CustomButton from "../../components/CustomButton";
 import GoogleButton from "../../components/GoogleButton";
 import { Link } from "expo-router";
 import axios from "axios";
+import Loading from "../../components/Loading";
+import { useAuth } from "../../context/authContext";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [Loading, setLoading] = useState(false);
   const [isSubmitting, setisSubmitting] = useState(false);
+
   const submit = async () => {
     if (form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill in all fields");
@@ -18,41 +22,6 @@ const SignIn = () => {
     setisSubmitting(true);
     const email = form.email;
     const password = form.password;
-    try {
-      // await axios
-      //   .post("http://localhost:3000/auth/sign-in", { email, password })
-      //   .then((data) => {
-      //     if (!data) return;
-      //     console.log(data);
-      //   });
-      fetch("http://localhost:3000/auth/sign-in", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "*",
-        },
-        body: JSON.stringify(form),
-      })
-        .catch((err) => {
-          return;
-        })
-        .then((res) => {
-          if (!res || !res.ok || res.status >= 400) {
-            return;
-          }
-          return res.json();
-        })
-        .then((data) => {
-          if (!data) return;
-          console.log(data);
-        });
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setisSubmitting(false);
-    }
   };
   return (
     <SafeAreaView className="h-full">
@@ -65,6 +34,8 @@ const SignIn = () => {
             resizeMode="contain"
             className="w-full h-[200px] top-[-50px]"
           />
+
+          {/* Input email field */}
           <FormField
             title="email"
             placeholder="Input your Email"
@@ -73,6 +44,7 @@ const SignIn = () => {
             otherStyles="top-[-50px]"
             keyboardType="email-address"
           />
+          {/* Input password field */}
           <FormField
             title="password"
             placeholder="Input your Password"
@@ -81,6 +53,8 @@ const SignIn = () => {
             otherStyles="top-[-40px]"
             keyboardType="password"
           />
+
+          {/* Forget Password */}
           <View className="my-2 top-[-35px]">
             <Link
               href=""
@@ -89,12 +63,15 @@ const SignIn = () => {
               Forget Password?
             </Link>
           </View>
+
+          {/* Submit Button */}
           <CustomButton
             title="Login"
             handlePress={submit}
             containerStyles=" bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full top-[-20px]"
             textStyles="font-semibold text-lg"
           />
+
           <View className="flex-row justify-arround items-center h-fit w-full">
             <View className="flex-1 h-[1px] bg-[#6A707C]" />
             <Text className="w-fit text-center color-[#6A707C] font-semibold mx-2">
@@ -102,7 +79,11 @@ const SignIn = () => {
             </Text>
             <View className="flex-1 h-[1px] bg-[#6A707C]" />
           </View>
+
+          {/* Google button */}
           <GoogleButton title="Login with Google" />
+
+          {/* Register */}
           <View className="w-full flex-row justify-center items-center mt-16">
             <Text>Don't have an account? </Text>
             <Link href="/sign-up" className="color-secondary font-semibold">
