@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Linking, Alert } from "react-native";
+import { View, Text, Image, ScrollView, Alert } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "../../constants/images";
@@ -6,23 +6,46 @@ import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import GoogleButton from "../../components/GoogleButton";
 import { Link } from "expo-router";
-import axios from "axios";
 import Loading from "../../components/Loading";
 import { useAuth } from "../../context/authContext";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const [Loading, setLoading] = useState(false);
   const [isSubmitting, setisSubmitting] = useState(false);
 
+  const { login } = useAuth();
+
   const submit = async () => {
+    // Check if all fields are filled
     if (form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill in all fields");
+      return;
     }
+
+    // set for loading state
     setisSubmitting(true);
-    const email = form.email;
-    const password = form.password;
+
+    const formData = {
+      email: form.email,
+      password: form.password,
+    };
+    // Remove undefined value
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] === undefined) {
+        delete formData[key];
+      }
+    });
+
+    // Login
+    let response = await login(formData.email, formData.password);
+
+    setisSubmitting(false);
+
+    if (!response.success) {
+      Alert.alert("Error", response.msg);
+    }
   };
+
   return (
     <SafeAreaView className="h-full">
       <ScrollView>
@@ -65,12 +88,18 @@ const SignIn = () => {
           </View>
 
           {/* Submit Button */}
-          <CustomButton
-            title="Login"
-            handlePress={submit}
-            containerStyles=" bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full top-[-20px]"
-            textStyles="font-semibold text-lg"
-          />
+          {isSubmitting ? (
+            <View className="bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full top-[-20px]">
+              <Loading size={50} />
+            </View>
+          ) : (
+            <CustomButton
+              title="Login"
+              handlePress={submit}
+              containerStyles=" bg-secondary rounded-[5px] min-h-[56px] justify-center items-center flex w-full top-[-20px]"
+              textStyles="font-semibold text-lg"
+            />
+          )}
 
           <View className="flex-row justify-arround items-center h-fit w-full">
             <View className="flex-1 h-[1px] bg-[#6A707C]" />

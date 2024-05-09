@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   onAuthStateChanged,
   getAuth,
   signOut,
@@ -30,11 +31,26 @@ const AuthContextProvider = ({ children }) => {
     // setIsAuthenticated(true);
   }, []);
 
+  // Login Handler
   const login = async (email, password) => {
     try {
-    } catch (error) {}
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      return { success: true, data: response?.user };
+    } catch (error) {
+      let msg = error.message;
+      if (error.code === "auth/invalid-email") {
+        msg = "Invalid email address";
+      } else if (error.code === "auth/wrong-password") {
+        msg = "Invalid password";
+      } else if (error.code === "auth/user-not-found") {
+        msg = "User not found";
+      }
+
+      return { success: false, msg };
+    }
   };
 
+  // Logout Handler
   const logout = async () => {
     try {
       await signOut(auth);
@@ -52,13 +68,14 @@ const AuthContextProvider = ({ children }) => {
         email,
         password
       );
-      console.log(response?.user);
+      // console.log(response?.user);
       // setUser(response?.user)
       // setIsAuthencticated(true)
 
       await setDoc(doc(db, "users", response?.user?.uid), {
         username: username,
         email: email,
+        role: "user",
         userId: response?.user?.uid,
       });
 
