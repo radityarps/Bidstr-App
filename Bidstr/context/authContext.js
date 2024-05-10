@@ -76,7 +76,14 @@ const AuthContextProvider = ({ children }) => {
 
   // Register Handler
   const register = async (name, email, password) => {
+    const nameRegex = /^[a-zA-Z -]+$/;
+    const passRegex = /^\S+$/ ;
     try {
+      if (!passRegex.test(password)) {
+        return {success : false, msg : "Invalid password format. Cannot contain spaces"}
+      } if (!nameRegex.test(name)) {
+        return {success : false, msg : "Invalid name format. Only letters are allowed."}
+      }
       const response = await createUserWithEmailAndPassword(
         auth,
         email,

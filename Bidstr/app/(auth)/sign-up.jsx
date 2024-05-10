@@ -30,8 +30,9 @@ const SignUp = () => {
       form.name == "")
     ) {
       Alert.alert("Error", "Please fill in all fields");
-    }
-
+    } if (form.password != form.confirmPassword) {
+      Alert.alert("Error", "Password did not match");
+    } else {
     setisSubmitting(true);
 
     const formData = {
@@ -60,6 +61,7 @@ const SignUp = () => {
     }
 
     setisSubmitting(false);
+    }
   };
   return (
     <SafeAreaView className="h-full bg-white">
