@@ -1,22 +1,35 @@
-import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from "react-native";
+import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SearchInput from "../../components/SearchInput";
 import icons from "../../constants/icons";
+import EmptyState from "../../components/EmptyState";
 
 const Projects = () => {
   const router = useRouter();
-  const { logout } = useAuth();
-  const handleLogout = async () => {
-    await logout();
-    router.push("/");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   };
 
   return (
-    <SafeAreaView className="bg-white w-full h-full">
+    <SafeAreaView className="bg-white w-full h-full flex justify-center">
       <FlatList
         data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        // data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <Text className="text-center">{item.id}</Text>
@@ -34,6 +47,15 @@ const Projects = () => {
               </TouchableOpacity>
             </View>
           </View>
+        }
+        ListEmptyComponent={() => (
+          <EmptyState
+            title="No projects found"
+            subtitle="Be the first one to upload a project"
+          />
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
     </SafeAreaView>

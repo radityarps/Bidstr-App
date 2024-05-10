@@ -15,15 +15,6 @@ import { getFirestore, collection } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  FIREBASE_APIKEY,
-  FIREBASE_AUTHDOMAIN,
-  FIREBASE_PROJECTID,
-  FIREBASE_STORAGEBUCKET,
-  FIREBASE_MESSAGINGSENDERID,
-  FIREBASE_APPID,
-  FIREBASE_MEASUREMENTID,
-} from "@env";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,

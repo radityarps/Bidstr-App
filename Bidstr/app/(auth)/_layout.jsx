@@ -11,6 +11,9 @@ const AuthLayout = () => {
           options={{
             headerShown: true,
             title: "",
+            headerStyle: {
+              height: "max",
+            },
             headerShadowVisible: false,
             headerLeft: () => <HeaderBackButton />,
           }}
@@ -20,6 +23,9 @@ const AuthLayout = () => {
           options={{
             headerShown: true,
             title: "",
+            headerStyle: {
+              height: "max",
+            },
             headerShadowVisible: false,
             headerLeft: () => <HeaderBackButton />,
           }}
