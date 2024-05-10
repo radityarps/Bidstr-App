@@ -13,9 +13,9 @@ const FormField = ({
   const [showPassword, setshowPassword] = useState(false);
   return (
     <View className={`space-y-2 ${otherStyles}`}>
-      <View className="w-full flex-row items-center h-14 bg-[#F7F8F9] px-4 border-2 border-[#E8ECF4] rounded-lg">
+      <View className="w-full flex-row items-center h-14 bg-gray-100 px-4 border-1 border-gray-200 rounded-lg">
         <TextInput
-          className="flex-1 text-black font-medium text-sm"
+          className="flex-1 text-black font-medium text-base"
           value={value}
           placeholder={placeholder}
           onChangeText={handleChangeText}

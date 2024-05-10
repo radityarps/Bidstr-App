@@ -11,9 +11,6 @@ const AuthLayout = () => {
           options={{
             headerShown: true,
             title: "",
-            headerStyle: {
-              backgroundColor: "transparent",
-            },
             headerShadowVisible: false,
             headerLeft: () => <HeaderBackButton />,
           }}
@@ -23,9 +20,6 @@ const AuthLayout = () => {
           options={{
             headerShown: true,
             title: "",
-            headerStyle: {
-              backgroundColor: "transparent",
-            },
             headerShadowVisible: false,
             headerLeft: () => <HeaderBackButton />,
           }}

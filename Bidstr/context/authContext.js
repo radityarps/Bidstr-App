@@ -21,6 +21,7 @@ const AuthContextProvider = ({ children }) => {
       if (user) {
         setIsAuthenticated(true);
         setUser(user);
+        updateUserData(user.uid);
       } else {
         setIsAuthenticated(false);
         setUser(null);
@@ -30,6 +31,19 @@ const AuthContextProvider = ({ children }) => {
 
     // setIsAuthenticated(true);
   }, []);
+
+  const updateUserData = async (userId) => {
+    const response = await getDoc(doc(db, "users", userId));
+    if (response.exists()) {
+      let data = response.data();
+      setUser({
+        ...user,
+        name: data.name,
+        profileUrl: data.profileUrl,
+        userId: data.userId,
+      });
+    }
+  };
 
   // Login Handler
   const login = async (email, password) => {
@@ -61,7 +75,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   // Register Handler
-  const register = async (username, email, password) => {
+  const register = async (name, email, password) => {
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -73,9 +87,10 @@ const AuthContextProvider = ({ children }) => {
       // setIsAuthencticated(true)
 
       await setDoc(doc(db, "users", response?.user?.uid), {
-        username: username,
+        name: name,
         email: email,
         role: "user",
+        profileUrl: "",
         userId: response?.user?.uid,
       });
 

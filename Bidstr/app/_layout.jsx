@@ -8,7 +8,7 @@ SplashScreen.preventAutoHideAsync();
 
 const MainLayout = () => {
   // Auth
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const segments = useSegments();
   const router = useRouter();
 

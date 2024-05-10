@@ -6,5 +6,18 @@ import profile from "../assets/icons/profile.png";
 import eye from "../assets/icons/eye.png";
 import eyehide from "../assets/icons/eyehide.png";
 import back from "../assets/icons/back.png";
+import search from "../assets/icons/search.png";
+import filter from "../assets/icons/filter.png";
 
-export default { projects, workers, chat, orders, profile, eye, eyehide, back };
+export default {
+  projects,
+  workers,
+  chat,
+  orders,
+  profile,
+  eye,
+  eyehide,
+  back,
+  search,
+  filter,
+};
