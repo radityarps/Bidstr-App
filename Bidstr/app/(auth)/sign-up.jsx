@@ -30,43 +30,44 @@ const SignUp = () => {
       form.name == "")
     ) {
       Alert.alert("Error", "Please fill in all fields");
-    } if (form.password != form.confirmPassword) {
+    }
+    if (form.password != form.confirmPassword) {
       Alert.alert("Error", "Password did not match");
     } else {
-    setisSubmitting(true);
+      setisSubmitting(true);
 
-    const formData = {
-      email: form.email,
-      password: form.password,
-      name: form.name,
-      confirmPassword: form.confirmPassword,
-    };
-    // Remove undefined value
-    Object.keys(formData).forEach((key) => {
-      if (formData[key] === undefined) {
-        delete formData[key];
+      const formData = {
+        email: form.email,
+        password: form.password,
+        name: form.name,
+        confirmPassword: form.confirmPassword,
+      };
+      // Remove undefined value
+      Object.keys(formData).forEach((key) => {
+        if (formData[key] === undefined) {
+          delete formData[key];
+        }
+      });
+
+      // Register user
+      let response = await register(
+        formData.name,
+        formData.email,
+        formData.password
+      );
+
+      // console.log("got result: ", response);
+      if (!response.success) {
+        Alert.alert("Sign Up", response.msg);
       }
-    });
 
-    // Register user
-    let response = await register(
-      formData.name,
-      formData.email,
-      formData.password
-    );
-
-    // console.log("got result: ", response);
-    if (!response.success) {
-      Alert.alert("Sign Up", response.msg);
-    }
-
-    setisSubmitting(false);
+      setisSubmitting(false);
     }
   };
   return (
     <SafeAreaView className="h-full bg-white">
       <ScrollView>
-        <View className="flex justify-base min-h-[85vh] w-full px-5">
+        <View className="flex justify-base min-h-[60vh] w-full px-5">
           <Text className="text-4xl font-bold mb-8">
             Hello! Register to get started
           </Text>

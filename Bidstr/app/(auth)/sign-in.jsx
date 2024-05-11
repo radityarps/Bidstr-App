@@ -49,7 +49,7 @@ const SignIn = () => {
   return (
     <SafeAreaView className="h-full bg-white">
       <ScrollView>
-        <View className="flex justify-center min-h-[85vh] w-full px-5">
+        <View className="flex justify-center min-h-[60vh] w-full px-5">
           <Text className="text-4xl font-bold">Welcome to</Text>
           <Text className="text-4xl font-bold">Bidstr</Text>
           <Image

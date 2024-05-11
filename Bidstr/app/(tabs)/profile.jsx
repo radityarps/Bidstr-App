@@ -9,6 +9,7 @@ const Profile = () => {
     await logout();
     router.push("/");
   };
+
   return (
     <View className="flex-1 items-center justify-center">
       <Text>Profile</Text>
@@ -19,4 +20,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Profile;

@@ -9,7 +9,7 @@ const SearchInput = ({ initialQuery }) => {
   const [query, setQuery] = useState(initialQuery || "");
 
   return (
-    <View className="flex-row items-center bg-gray-100 space-x-4 w-full h-12 px-4 rounded-full">
+    <View className="flex-row items-center bg-gray-100 space-x-2 w-full h-11 px-4 rounded-full">
       <TouchableOpacity
         onPress={() => {
           if (query === "")
@@ -21,7 +21,7 @@ const SearchInput = ({ initialQuery }) => {
           else router.push(`/search/${query}`);
         }}
       >
-        <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
+        <Image source={icons.search} className="w-6 h-6" resizeMode="contain" />
       </TouchableOpacity>
       <TextInput
         className="text-base mt-0.5  flex-1 font-regular"

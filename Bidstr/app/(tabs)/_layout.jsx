@@ -73,7 +73,7 @@ const TabsLayout = () => {
             tabBarIcon: ({ color, focused, style }) => (
               <TabIcon
                 icon={icons.chat}
-                style="flex justify-center items-center bg-white drop-shadow-md rounded-full top-[-25px] p-[5px]"
+                style="flex justify-center items-center bg-white shadow-sm shadow-black rounded-full top-[-25px] p-[5px]"
                 classImg="bg-secondary w-[8px] h-[8px] p-7 rounded-full"
               />
             ),
